@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/constants.dart';
 import 'package:restaurant_app/views/home_page.dart';
+import 'package:restaurant_app/views/login_page.dart';
 
 class CustomButtonOnboarding extends StatelessWidget {
   const CustomButtonOnboarding({super.key});
@@ -9,8 +10,8 @@ class CustomButtonOnboarding extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const LoginPage()));
       },
       child: Container(
         height: 60,
