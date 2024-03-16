@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/admin/update_food.dart';
 import 'package:restaurant_app/constants.dart';
 import 'package:restaurant_app/services/data_base.dart';
-import 'package:restaurant_app/views/order_details_screen.dart';
 import 'package:restaurant_app/widgets/all_items_widget.dart';
 import 'package:restaurant_app/widgets/custom_category_card.dart';
 import 'package:restaurant_app/widgets/custom_text_field.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({
+class HomeAdminUpdatePage extends StatefulWidget {
+  const HomeAdminUpdatePage({
     super.key,
   });
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeAdminUpdatePage> createState() => _HomeAdminUpdatePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeAdminUpdatePageState extends State<HomeAdminUpdatePage> {
   Stream? fooditemStream;
 
   onLoad() async {
@@ -44,36 +44,36 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
-              children: [
-                CircleAvatar(
-                  backgroundColor: kPrimaryColor,
-                  child: Text(
-                    'S',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text('Hi Shrouk',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 24,
-                    )),
-              ],
-            ),
-            const Text(
-              'Ready for order',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 28,
-                  fontWeight: FontWeight.w900),
-            ),
+            // const Row(
+            //   children: [
+            //     CircleAvatar(
+            //       backgroundColor: kPrimaryColor,
+            //       child: Text(
+            //         'S',
+            //         style: TextStyle(
+            //           fontSize: 24,
+            //           fontWeight: FontWeight.bold,
+            //           color: Colors.black,
+            //         ),
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       width: 10,
+            //     ),
+            //     Text('Hi Shrouk',
+            //         style: TextStyle(
+            //           color: Colors.black,
+            //           fontSize: 24,
+            //         )),
+            //   ],
+            // ),
+            // const Text(
+            //   'Ready for order',
+            //   style: TextStyle(
+            //       color: Colors.black,
+            //       fontSize: 28,
+            //       fontWeight: FontWeight.w900),
+            // ),
             const SizedBox(
               height: 30,
             ),
@@ -164,9 +164,14 @@ class _HomePageState extends State<HomePage> {
             Expanded(
                 child: Container(
                     child: AllItemsWidget(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UpdateFood()));
+              },
               context: context,
               fooditemStream: fooditemStream,
-              // widget: widget
             ))),
             // const Expanded(child: FoodCard()),
           ],

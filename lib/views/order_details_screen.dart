@@ -1,11 +1,33 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/constants.dart';
+import 'package:restaurant_app/models/food_item_model.dart';
+import 'package:restaurant_app/provider/cart_provider.dart';
+import 'package:restaurant_app/services/data_base.dart';
+import 'package:restaurant_app/views/cart_page.dart';
 
-class OrderDetails extends StatelessWidget {
-  const OrderDetails({super.key});
+class OrderDetails extends StatefulWidget {
+  OrderDetails(
+      {super.key,
+      required this.description,
+      required this.image,
+      required this.name,
+      required this.price,
+      required this.product});
+
+  String name, price, description, image;
+  final FoodItemModel product;
+
+  @override
+  State<OrderDetails> createState() => _OrderDetailsState();
+}
+
+class _OrderDetailsState extends State<OrderDetails> {
+  int a = 1;
 
   @override
   Widget build(BuildContext context) {
+    final provider = CartProvider.of(context);
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -13,91 +35,162 @@ class OrderDetails extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Center(
-              child: Text(
-                'Pizza',
-                style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+            //  Center(
+            //   child: Text(
+            //     widget.categoryName,
+            //     style: const TextStyle(
+            //         fontSize: 32,
+            //         fontWeight: FontWeight.bold,
+            //         color: Colors.black),
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: 10,
+            // ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.network(
+                widget.image,
+                height: MediaQuery.of(context).size.height / 5, //150,
+                width: MediaQuery.of(context).size.width / 1.5,
+                fit: BoxFit.fill,
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Image.asset(
-              'assets/images/pizza(2).jpeg',
-              height: 150,
-              width: MediaQuery.of(context).size.width,
             ),
             const SizedBox(
               height: 70,
             ),
             Row(
               children: [
-                const Text(
-                  r'Price : $25',
-                  style: TextStyle(
+                Text(
+                  r'Price : $' + widget.price,
+                  style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 170,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: kPrimaryColor,
-                  ),
-                  height: 20,
-                  width: 20,
-                  child: const Icon(
-                    Icons.remove,
-                    color: Colors.white,
-                    size: 20,
+                GestureDetector(
+                  onTap: () {
+                    if (a > 1) {
+                      --a;
+                    }
+                    setState(() {});
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: kPrimaryColor,
+                    ),
+                    height: 20,
+                    width: 20,
+                    child: const Icon(
+                      Icons.remove,
+                      color: Colors.white,
+                      size: 20,
+                    ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
-                    '1',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    a.toString(),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: kPrimaryColor,
-                  ),
-                  height: 20,
-                  width: 20,
-                  child: const Icon(
-                    Icons.add,
-                    color: Colors.white,
-                    size: 20,
+                GestureDetector(
+                  onTap: () {
+                    ++a;
+                    setState(() {});
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: kPrimaryColor,
+                    ),
+                    height: 20,
+                    width: 20,
+                    child: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                      size: 20,
+                    ),
                   ),
                 )
               ],
             ),
             const SizedBox(
-              height: 250,
+              height: 20,
             ),
-            Container(
-                height: 40,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: kPrimaryColor,
-                    borderRadius: BorderRadius.circular(16)),
-                child: const Center(
-                  child: Text(
-                    'Order',
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ))
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              //  crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.description,
+                  maxLines: null,
+                  style: TextStyle(
+                      fontSize: 28, color: Colors.black.withOpacity(0.7)),
+                ),
+              ],
+            ),
+
+            const SizedBox(
+              height: 200,
+            ),
+
+            Text(
+              r'Total Price : $ ' + (a * int.parse(widget.price)).toString(),
+              style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            GestureDetector(
+              onTap: () async {
+                provider.toggleProduct(widget.product);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CartPage(),
+                    ));
+              },
+              child: Container(
+                  height: 60,
+                  width: 300,
+                  decoration: BoxDecoration(
+                      color: kPrimaryColor,
+                      borderRadius: BorderRadius.circular(16)),
+                  child: const Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 24.0),
+                          child: Text(
+                            'Add to cart',
+                            style: TextStyle(
+                                fontSize: 24,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(right: 20.0),
+                          child: Icon(
+                            Icons.shopping_cart_outlined,
+                            color: Colors.black,
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+            ),
           ],
         ),
       ),
