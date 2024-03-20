@@ -9,7 +9,9 @@ import 'package:restaurant_app/widgets/customButton.dart';
 import 'package:restaurant_app/widgets/customtextformfeild.dart';
 
 class AddFood extends StatefulWidget {
-  const AddFood({super.key});
+  const AddFood({
+    super.key,
+  });
 
   @override
   State<AddFood> createState() => _AddFoodState();
@@ -25,10 +27,13 @@ class _AddFoodState extends State<AddFood> {
     'Drinks',
     'Popular Food'
   ];
+
   String? value;
   String? itemName;
   String? price;
   String? description;
+  int? id;
+
   final ImagePicker picker = ImagePicker();
   File? selectedImage;
   Future getImage() async {
@@ -52,10 +57,12 @@ class _AddFoodState extends State<AddFood> {
         'Name': itemName,
         'Price': price,
         'Description': description,
+        'id': id,
       };
       await DataBaseMethods().addFoodItem(addItem, value!).then((value) {
         showSnackBar(context, 'Food item has been added successfully');
       });
+      await DataBaseMethods().addFoodItem(addItem, 'AllItems').then((value) {});
     }
   }
 
@@ -139,6 +146,22 @@ class _AddFoodState extends State<AddFood> {
                 height: 20,
               ),
               const Text(
+                '   Item Id',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+              ),
+              CustomTextFormFiled(
+                onChange: (data) {
+                  id = int.parse(data);
+                },
+                hint: 'Enter item Id',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
                 '   Item Name',
                 style: TextStyle(
                     fontSize: 20,
@@ -204,7 +227,7 @@ class _AddFoodState extends State<AddFood> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      color: Color.fromARGB(255, 241, 240, 240)),
+                      color: const Color.fromARGB(255, 241, 240, 240)),
                   child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
                     items: items

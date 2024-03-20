@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/admin/update_food.dart';
-import 'package:restaurant_app/constants.dart';
 import 'package:restaurant_app/services/data_base.dart';
 import 'package:restaurant_app/widgets/all_items_widget.dart';
 import 'package:restaurant_app/widgets/custom_category_card.dart';
@@ -74,14 +73,14 @@ class _HomeAdminUpdatePageState extends State<HomeAdminUpdatePage> {
             //       fontSize: 28,
             //       fontWeight: FontWeight.w900),
             // ),
-            const SizedBox(
-              height: 30,
-            ),
-            const SizedBox(
-              height: 60,
-              width: 270,
-              child: CustomTextField(),
-            ),
+            // const SizedBox(
+            //   height: 30,
+            // ),
+            // const SizedBox(
+            //   height: 60,
+            //   width: 270,
+            //   child: CustomSearchcontainer(),
+            // ),
             const SizedBox(
               height: 10,
             ),

@@ -23,7 +23,7 @@ class _UpdateFoodState extends State<UpdateFood> {
     'Salad',
     'Ice-Cream',
     'Drinks',
-    'Popular Food'
+    'Popular Food',
   ];
   String? value;
   String? itemName;

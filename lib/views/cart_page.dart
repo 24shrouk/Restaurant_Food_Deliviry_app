@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:restaurant_app/constants.dart';
 import 'package:restaurant_app/provider/cart_provider.dart';
+import 'package:restaurant_app/views/payment_page.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -15,7 +16,7 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     final provider = CartProvider.of(context);
     final finalList = provider.cart;
-
+    final dynamic totalPrice = provider.getTotalPrice();
     _buildProductQuatity(IconData icon, int index) {
       return GestureDetector(
         onTap: () {
@@ -26,9 +27,7 @@ class _CartPageState extends State<CartPage> {
           });
         },
         child: Container(
-          width: 15,
-          height: 15,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: kPrimaryColor,
           ),
@@ -53,7 +52,7 @@ class _CartPageState extends State<CartPage> {
               itemCount: finalList.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Slidable(
                     endActionPane:
                         ActionPane(motion: const ScrollMotion(), children: [
@@ -104,15 +103,13 @@ class _CartPageState extends State<CartPage> {
                                 ),
                                 Text(
                                   '\$${finalList[index].price}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
-                            // const SizedBox(
-                            //   width: 150,
-                            // ),
+
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(children: [
@@ -130,25 +127,6 @@ class _CartPageState extends State<CartPage> {
                         ),
                       ),
                     ),
-                    //ListTile(
-                    //   title: Text(
-                    //     finalList[index].itemName,
-                    //     style: const TextStyle(
-                    //       fontSize: 20,
-                    //       fontWeight: FontWeight.bold,
-                    //     ),
-                    //   ),
-                    //   subtitle: Text(
-                    //     '\$${finalList[index].price}',
-                    //     overflow: TextOverflow.ellipsis,
-                    //   ),
-                    //   leading: CircleAvatar(
-                    //     radius: 50,
-                    //     backgroundImage: NetworkImage(
-                    //       finalList[index].image,
-                    //     ),
-                    //     backgroundColor: Colors.red.shade100,
-                    //   ),
                   ),
                 );
               },
@@ -173,11 +151,18 @@ class _CartPageState extends State<CartPage> {
                   style: const TextStyle(
                       fontSize: 40, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PaymentPage(
+                                    totalPrice: totalPrice,
+                                  )));
+                    },
                     icon: const Icon(
                       Icons.send,
                       color: kPrimaryColor,

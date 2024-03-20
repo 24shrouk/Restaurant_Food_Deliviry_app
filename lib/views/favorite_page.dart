@@ -83,7 +83,7 @@ class _FavoritePageState extends State<FavoritePage> {
                               ),
                               Text(
                                 '\$${finalList[index].price}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             ],

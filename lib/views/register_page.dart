@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:restaurant_app/constants.dart';
@@ -23,6 +25,7 @@ class _RegisterPageState extends State<RegisterPage>
   String? password;
   int? phone;
   String? userName;
+
   bool isLoaded = false;
   bool obsecure = true;
   GlobalKey<FormState> formKey = GlobalKey();
@@ -211,7 +214,7 @@ class _RegisterPageState extends State<RegisterPage>
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         padding: const EdgeInsets.all(16),
-        backgroundColor: Color.fromARGB(255, 240, 231, 223),
+        backgroundColor: const Color.fromARGB(255, 240, 231, 223),
         content: Text(
           message,
           style: const TextStyle(color: Colors.black),
@@ -223,5 +226,11 @@ class _RegisterPageState extends State<RegisterPage>
   Future<void> registerUser() async {
     UserCredential user = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email!, password: password!);
+
+    FirebaseFirestore.instance.collection('Users').doc(user.user!.email).set({
+      'userName': userName,
+      'email': email,
+      'phone': phone,
+    });
   }
 }

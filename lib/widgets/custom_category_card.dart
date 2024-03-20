@@ -26,7 +26,7 @@ class _CustomCategoryCardState extends State<CustomCategoryCard> {
             width: 80,
             height: 200,
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 255, 249, 249),
+              color: const Color.fromARGB(255, 255, 249, 249),
               borderRadius: BorderRadius.circular(10),
             ),
             child: ClipRRect(

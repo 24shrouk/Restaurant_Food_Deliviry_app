@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/constants.dart';
 import 'package:restaurant_app/data/onboarding_list_data.dart';
-import 'package:restaurant_app/views/home_page.dart';
 import 'package:restaurant_app/views/register_page.dart';
-import 'package:restaurant_app/widgets/custom_bottom_bar.dart';
 
 class OnBoarding extends StatefulWidget {
   const OnBoarding({super.key});

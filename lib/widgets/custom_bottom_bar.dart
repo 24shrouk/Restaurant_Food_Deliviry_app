@@ -24,11 +24,11 @@ class _CustomBottombarState extends State<CustomBottombar> {
   late CartPage cartPage;
   @override
   void initState() {
-    homePage = HomePage();
+    homePage = const HomePage();
 
-    favoritePage = FavoritePage();
-    cartPage = CartPage();
-    profilePage = ProfilePage();
+    favoritePage = const FavoritePage();
+    cartPage = const CartPage();
+    profilePage = const ProfilePage();
     pages = [homePage, favoritePage, cartPage, profilePage];
     super.initState();
   }

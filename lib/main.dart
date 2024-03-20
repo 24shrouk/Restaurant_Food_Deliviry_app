@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/provider/cart_provider.dart';
 import 'package:restaurant_app/provider/favorite_provider.dart';
+
 import 'package:restaurant_app/views/splach_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -22,15 +23,9 @@ class RestaurantApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<FavoriteProvider>(
-            create: (_) => FavoriteProvider(),
-          ),
-          // Add other providers if needed
+              create: (_) => FavoriteProvider()),
+          ChangeNotifierProvider<CartProvider>(create: (_) => CartProvider()),
         ],
-        // MultiProvider(
-        //     providers: [
-        //       ChangeNotifierProvider(create: (_) => FavoriteProvider()),
-        //       ChangeNotifierProvider(create: (_) => CartProvider()),
-        //     ],
         child: const MaterialApp(
           debugShowCheckedModeBanner: false,
           home: SplachScreen(),

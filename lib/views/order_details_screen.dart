@@ -1,9 +1,7 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/constants.dart';
 import 'package:restaurant_app/models/food_item_model.dart';
 import 'package:restaurant_app/provider/cart_provider.dart';
-import 'package:restaurant_app/services/data_base.dart';
 import 'package:restaurant_app/views/cart_page.dart';
 
 class OrderDetails extends StatefulWidget {
@@ -23,11 +21,11 @@ class OrderDetails extends StatefulWidget {
 }
 
 class _OrderDetailsState extends State<OrderDetails> {
-  int a = 1;
-
+  // int a = 1;
   @override
   Widget build(BuildContext context) {
     final provider = CartProvider.of(context);
+
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -35,18 +33,6 @@ class _OrderDetailsState extends State<OrderDetails> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //  Center(
-            //   child: Text(
-            //     widget.categoryName,
-            //     style: const TextStyle(
-            //         fontSize: 32,
-            //         fontWeight: FontWeight.bold,
-            //         color: Colors.black),
-            //   ),
-            // ),
-            // const SizedBox(
-            //   height: 10,
-            // ),
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.network(
@@ -71,54 +57,53 @@ class _OrderDetailsState extends State<OrderDetails> {
                 const SizedBox(
                   width: 170,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    if (a > 1) {
-                      --a;
-                    }
-                    setState(() {});
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: kPrimaryColor,
-                    ),
-                    height: 20,
-                    width: 20,
-                    child: const Icon(
-                      Icons.remove,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    a.toString(),
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    ++a;
-                    setState(() {});
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: kPrimaryColor,
-                    ),
-                    height: 20,
-                    width: 20,
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  ),
-                )
+                // GestureDetector(
+                //   onTap: () {
+                //     if (a > 1) {
+                //       --a;
+                //     }
+                //     setState(() {});
+                //   },
+                //   child: Container(
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(4),
+                //       color: kPrimaryColor,
+                //     ),
+                //     height: 20,
+                //     width: 20,
+                //     child: const Icon(
+                //       Icons.remove,
+                //       color: Colors.white,
+                //       size: 20,
+                //     ),
+                //   ),
+                // ),
+                // // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                //   child: Text(
+                //     a.toString(),
+                //     style: const TextStyle(
+                //         fontSize: 18, fontWeight: FontWeight.bold),
+                //   ),
+                // ),
+                // GestureDetector(
+                //   onTap: () {
+                //     ++a;
+                //     setState(() {});
+                //   },
+                // Container(
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(4),
+                //     color: kPrimaryColor,
+                //   ),
+                //   height: 20,
+                //   width: 20,
+                //   child: const Icon(
+                //     Icons.add,
+                //     color: Colors.white,
+                //     size: 20,
+                //   ),
+                // ),
               ],
             ),
             const SizedBox(
@@ -126,7 +111,6 @@ class _OrderDetailsState extends State<OrderDetails> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              //  crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   widget.description,
@@ -136,21 +120,19 @@ class _OrderDetailsState extends State<OrderDetails> {
                 ),
               ],
             ),
-
             const SizedBox(
               height: 200,
             ),
-
-            Text(
-              r'Total Price : $ ' + (a * int.parse(widget.price)).toString(),
-              style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
+            // Text(
+            //   r'Total Price : $ ' + (a * int.parse(widget.price)).toString(),
+            //   style: const TextStyle(
+            //       fontSize: 18,
+            //       fontWeight: FontWeight.bold,
+            //       color: Colors.black),
+            // ),
+            // const SizedBox(
+            //   height: 50,
+            // ),
             GestureDetector(
               onTap: () async {
                 provider.toggleProduct(widget.product);
